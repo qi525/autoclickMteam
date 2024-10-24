@@ -14,14 +14,19 @@ async function highlightElement(row, color='yellow') {
         console.log("设置背景色")
         //点击下载
         let targetButton = row.querySelector("td:nth-child(2) > div.flex.flex-nowrap > div:nth-child(2) > div.flex.rows-center.justify-end.flex-nowrap > div > button.ant-btn.css-lr0xxo.ant-btn-circle.ant-btn-primary.ant-btn-color-primary.ant-btn-variant-solid.ant-btn-sm.ant-btn-icon-only.ant-btn-background-ghost.mr-2")
-        let downloading = row.querySelector("td:nth-child(2) > div.ant-progress.ant-progress-status-success.ant-progress-line.ant-progress-line-align-end.ant-progress-line-position-outer.ant-progress-show-info.ant-progress-default.mb-0.css-lr0xxo")
+        let completed = row.querySelector("td:nth-child(2) > div.ant-progress.ant-progress-status-success.ant-progress-line.ant-progress-line-align-end.ant-progress-line-position-outer.ant-progress-show-info.ant-progress-default.mb-0.css-lr0xxo")
+        let downloading = row.querySelector("td:nth-child(2) > div.ant-progress.ant-progress-status-active.ant-progress-line.ant-progress-line-align-end.ant-progress-line-position-outer.ant-progress-show-info.ant-progress-default.mb-0.css-lr0xxo")
         //如果下载按钮存在
         if (targetButton) {
-            if (!downloading) {
-                targetButton.click();
-                console.log("成功点击")
+            if (!completed) {
+                if (!downloading) {
+                    targetButton.click();
+                    console.log("成功点击")
+                } else {
+                    console.warn("正在下载");
+                }
             } else {
-                console.warn("正在下载");
+                console.warn("已完成");
             }
         } else {
             console.warn("下载按钮不存在");
